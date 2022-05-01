@@ -9,13 +9,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pomodoro2.Task;
 import com.example.pomodoro2.databinding.TodayFragmentBinding;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
 
 public class TodayFragment extends Fragment {
 
     private TodayFragmentBinding binding;
+    private ArrayList<Task> tasks;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -32,10 +37,12 @@ public class TodayFragment extends Fragment {
             }
         });
 
-        final TextView textView = binding.textToday;
-        todayViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        final TextView textView = binding.textToday;
+//        todayViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
-
+        RecyclerView recyclerView = binding.recyclerView;
+        tasks.add(new Task(1, "Title", "Description", 1));
+        tasks.add(new Task(2, "Title2", "Description2", 1));
 
         return root;
     }
