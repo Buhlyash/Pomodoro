@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_today">
+
+    <fragment
+        android:id="@+id/nav_today"
+        android:name="com.example.pomodoro2.ui.today.TodayFragment"
+        android:label="Today"
+        tools:layout="@layout/today_fragment" />
+
+    <fragment
+        android:id="@+id/nav_done"
+        android:name="com.example.pomodoro2.ui.done.DoneFragment"
+        android:label="Done"
+        tools:layout="@layout/done_fragment" />
+
+    <fragment
+        android:id="@+id/nav_projects"
+        android:name="com.example.pomodoro2.ui.projects.ProjectsFragment"
+        android:label="Projects"
+        tools:layout="@layout/projects_fragment" />
+    <fragment
+        android:id="@+id/nav_timer"
+        android:name="com.example.pomodoro2.ui.timer.TimerFragment"
+        android:label="Timer"
+        tools:layout="@layout/timer_fragment" />
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="com.example.pomodoro2.ui.about.AboutFragment"
+        android:label="About"
+        tools:layout="@layout/about_fragment" />
+</navigation>
