@@ -1,0 +1,103 @@
+package com.example.pomodoro2;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
+
+    private List<Task> tasks;
+    private OnTasksClickListener onTasksClickListener;
+
+
+    public TaskAdapter(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public interface OnTasksClickListener {
+        void onTaskClick(int position);
+        void onLongClick(int position);
+    }
+
+    public void setOnTasksClickListener(OnTasksClickListener onTasksClickListener) {
+        this.onTasksClickListener = onTasksClickListener;
+    }
+
+    @NonNull
+    @Override
+    public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_item, parent, false);
+        return new TaskViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
+        Task task = tasks.get(position);
+        holder.textViewTitle.setText(task.getTitle());
+        holder.textViewDescription.setText(task.getDescription());
+        int colorId;
+        int priority = task.getPriority();
+        switch (priority) {
+            case 1:
+                colorId = holder.itemView.getResources().getColor(android.R.color.holo_red_light);
+                break;
+            case 2:
+                colorId = holder.itemView.getResources().getColor(android.R.color.holo_orange_light);
+                break;
+            default:
+                colorId = holder.itemView.getResources().getColor(android.R.color.holo_green_light);
+                break;
+        }
+        holder.textViewTitle.setBackgroundColor(colorId);
+    }
+
+    @Override
+    public int getItemCount() {
+        return tasks.size();
+    }
+
+    class TaskViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView textViewTitle;
+        private TextView textViewDescription;
+
+        public TaskViewHolder(@NonNull View itemView) {
+            super(itemView);
+            textViewTitle = itemView.findViewById(R.id.textViewTitle);
+            textViewDescription = itemView.findViewById(R.id.textViewDescription);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(onTasksClickListener != null) {
+                        onTasksClickListener.onTaskClick(getAdapterPosition());
+                    }
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if(onTasksClickListener != null) {
+                        onTasksClickListener.onLongClick(getAdapterPosition());
+                    }
+                    return true;
+                }
+            });
+        }
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+        notifyDataSetChanged();
+    }
+}
