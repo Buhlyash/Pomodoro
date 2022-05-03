@@ -1,4 +1,4 @@
-package com.example.pomodoro2;
+package com.example.pomodoro2.database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -6,7 +6,8 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import java.util.ArrayList;
+import com.example.pomodoro2.database.Task;
+
 import java.util.List;
 
 @Dao

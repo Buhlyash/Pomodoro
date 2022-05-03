@@ -3,7 +3,6 @@ package com.example.pomodoro2;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -11,8 +10,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.pomodoro2.database.Task;
 import com.example.pomodoro2.databinding.ActivityAddTaskBinding;
-import com.example.pomodoro2.databinding.TodayFragmentBinding;
 import com.example.pomodoro2.ui.today.TodayViewModel;
 
 public class AddTaskActivity extends AppCompatActivity {
@@ -40,8 +39,9 @@ public class AddTaskActivity extends AppCompatActivity {
                 RadioButton radioButton = findViewById(radioButtonId);
                 int priority = Integer.parseInt(radioButton.getText().toString());
                 if (isFilled(title, description)) {
-                    Task task = new Task(title, description, priority);
+                    Task task = new Task(title, description, priority, 1);
                     viewModel.insertTask(task);
+                    finish();
                 } else {
                     Toast.makeText(AddTaskActivity.this, "Все поля дожны быть заполнены", Toast.LENGTH_SHORT).show();
                 }

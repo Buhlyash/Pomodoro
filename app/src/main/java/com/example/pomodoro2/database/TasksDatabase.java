@@ -1,4 +1,4 @@
-package com.example.pomodoro2;
+package com.example.pomodoro2.database;
 
 import android.content.Context;
 
@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Task.class}, version = 1, exportSchema = false)
+@Database(entities = {Task.class, Projects.class}, version = 2, exportSchema = false)
 public abstract class TasksDatabase extends RoomDatabase{
     private static TasksDatabase database;
     private static final String DB_NAME = "tasks.db";
@@ -16,6 +16,7 @@ public abstract class TasksDatabase extends RoomDatabase{
         synchronized (LOCK){
             if (database == null) {
                 database = Room.databaseBuilder(context, TasksDatabase.class, DB_NAME)
+                        .fallbackToDestructiveMigration()
                         .build();
             }
         }
@@ -23,4 +24,7 @@ public abstract class TasksDatabase extends RoomDatabase{
     }
 
     public abstract TasksDao tasksDao();
+    public abstract ProjectsDao projectsDao();
+
+
 }
