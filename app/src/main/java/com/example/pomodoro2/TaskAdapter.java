@@ -3,10 +3,15 @@ package com.example.pomodoro2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.pomodoro2.database.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +29,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     public interface OnTasksClickListener {
         void onTaskClick(int position);
         void onLongClick(int position);
+        void onCheckedChangeListener(int position);
     }
 
     public void setOnTasksClickListener(OnTasksClickListener onTasksClickListener) {
@@ -67,11 +73,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
         private TextView textViewTitle;
         private TextView textViewDescription;
+        private CheckBox checkBox;
 
         public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewDescription = itemView.findViewById(R.id.textViewDescription);
+            checkBox = itemView.findViewById(R.id.checkBox);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -87,6 +95,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                         onTasksClickListener.onLongClick(getAdapterPosition());
                     }
                     return true;
+                }
+            });
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    onTasksClickListener.onCheckedChangeListener(getAdapterPosition());
                 }
             });
         }

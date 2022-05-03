@@ -9,7 +9,11 @@
         android:id="@+id/nav_today"
         android:name="com.example.pomodoro2.ui.today.TodayFragment"
         android:label="Today"
-        tools:layout="@layout/today_fragment" />
+        tools:layout="@layout/today_fragment" >
+        <action
+            android:id="@+id/action_nav_today_to_editTodayFragment"
+            app:destination="@id/editTodayFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_done"
@@ -32,4 +36,9 @@
         android:name="com.example.pomodoro2.ui.about.AboutFragment"
         android:label="About"
         tools:layout="@layout/about_fragment" />
+    <fragment
+        android:id="@+id/editTodayFragment"
+        android:name="com.example.pomodoro2.ui.today.EditTodayFragment"
+        android:label="fragment_edit_today"
+        tools:layout="@layout/fragment_edit_today" />
 </navigation>

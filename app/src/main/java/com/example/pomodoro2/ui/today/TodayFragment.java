@@ -5,23 +5,30 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentManagerKt;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pomodoro2.AddTaskActivity;
-import com.example.pomodoro2.Task;
+import com.example.pomodoro2.MainActivity;
+import com.example.pomodoro2.R;
+import com.example.pomodoro2.database.Task;
 import com.example.pomodoro2.TaskAdapter;
 import com.example.pomodoro2.databinding.TodayFragmentBinding;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +48,11 @@ public class TodayFragment extends Fragment {
         binding = TodayFragmentBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        NavHostFragment navHostFragment = (NavHostFragment) fragmentManager.findFragmentById(R.id.nav_host_fragment_content_main);
+        NavController navController = navHostFragment.getNavController();
+
+
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,6 +63,7 @@ public class TodayFragment extends Fragment {
             }
         });
 
+        
 
 
 //        final TextView textView = binding.textToday;
@@ -64,11 +77,18 @@ public class TodayFragment extends Fragment {
         adapter.setOnTasksClickListener(new TaskAdapter.OnTasksClickListener() {
             @Override
             public void onTaskClick(int position) {
-                Toast.makeText(inflater.getContext(), "ABOBA", Toast.LENGTH_SHORT).show();
+                Toast.makeText(inflater.getContext(), "" + position, Toast.LENGTH_SHORT).show();
+                navController.navigate(R.id.action_nav_today_to_editTodayFragment);
             }
 
             @Override
             public void onLongClick(int position) {
+                remove(position);
+            }
+
+            @Override
+            public void onCheckedChangeListener(int position) {
+
                 remove(position);
             }
         });

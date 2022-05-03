@@ -6,11 +6,9 @@ import android.os.AsyncTask;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.example.pomodoro2.Task;
-import com.example.pomodoro2.TasksDatabase;
+import com.example.pomodoro2.database.Task;
+import com.example.pomodoro2.database.TasksDatabase;
 
 import java.util.List;
 
