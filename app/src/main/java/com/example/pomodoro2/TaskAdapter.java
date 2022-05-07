@@ -1,5 +1,7 @@
 package com.example.pomodoro2;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,7 +86,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                 @Override
                 public void onClick(View view) {
                     if(onTasksClickListener != null) {
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(view.getContext());
+                        preferences.edit().putInt("task_id" ,tasks.get(getAdapterPosition()).getId()).apply();
                         onTasksClickListener.onTaskClick(getAdapterPosition());
+
                     }
                 }
             });

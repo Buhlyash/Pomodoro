@@ -5,29 +5,24 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentManagerKt;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pomodoro2.AddTaskActivity;
-import com.example.pomodoro2.MainActivity;
 import com.example.pomodoro2.R;
-import com.example.pomodoro2.database.Task;
 import com.example.pomodoro2.TaskAdapter;
+import com.example.pomodoro2.database.Task;
 import com.example.pomodoro2.databinding.TodayFragmentBinding;
 
 import java.util.ArrayList;
@@ -63,12 +58,6 @@ public class TodayFragment extends Fragment {
             }
         });
 
-        
-
-
-//        final TextView textView = binding.textToday;
-//        todayViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
         RecyclerView recyclerView = binding.recyclerView;
         getData();
         adapter = new TaskAdapter(tasks);
@@ -78,7 +67,7 @@ public class TodayFragment extends Fragment {
             @Override
             public void onTaskClick(int position) {
                 Toast.makeText(inflater.getContext(), "" + position, Toast.LENGTH_SHORT).show();
-                navController.navigate(R.id.action_nav_today_to_editTodayFragment);
+                navController.navigate(R.id.toEditTodayFragmentAction);
             }
 
             @Override

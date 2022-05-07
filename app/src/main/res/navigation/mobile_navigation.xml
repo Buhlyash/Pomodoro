@@ -8,37 +8,58 @@
     <fragment
         android:id="@+id/nav_today"
         android:name="com.example.pomodoro2.ui.today.TodayFragment"
-        android:label="Today"
+        android:label="Сегодня"
         tools:layout="@layout/today_fragment" >
         <action
-            android:id="@+id/action_nav_today_to_editTodayFragment"
+            android:id="@+id/toEditTodayFragmentAction"
             app:destination="@id/editTodayFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_done"
         android:name="com.example.pomodoro2.ui.done.DoneFragment"
-        android:label="Done"
+        android:label="Выполненные"
         tools:layout="@layout/done_fragment" />
 
     <fragment
         android:id="@+id/nav_projects"
         android:name="com.example.pomodoro2.ui.projects.ProjectsFragment"
-        android:label="Projects"
-        tools:layout="@layout/projects_fragment" />
+        android:label="Проекты"
+        tools:layout="@layout/projects_fragment" >
+        <action
+            android:id="@+id/action_nav_projects_to_addProjectFragment"
+            app:destination="@id/addProjectFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_timer"
         android:name="com.example.pomodoro2.ui.timer.TimerFragment"
-        android:label="Timer"
+        android:label="Таймер Помодоро"
         tools:layout="@layout/timer_fragment" />
     <fragment
         android:id="@+id/nav_about"
         android:name="com.example.pomodoro2.ui.about.AboutFragment"
-        android:label="About"
+        android:label="О программе"
         tools:layout="@layout/about_fragment" />
     <fragment
         android:id="@+id/editTodayFragment"
         android:name="com.example.pomodoro2.ui.today.EditTodayFragment"
-        android:label="fragment_edit_today"
-        tools:layout="@layout/fragment_edit_today" />
+        android:label="Редактировать задачу"
+        tools:layout="@layout/fragment_edit_today" >
+        <argument
+            android:name="task_id"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_editTodayFragment_to_nav_today"
+            app:destination="@id/nav_today" />
+    </fragment>
+    <fragment
+        android:id="@+id/addProjectFragment"
+        android:name="com.example.pomodoro2.ui.projects.AddProjectFragment"
+        android:label="Добавить Проект"
+        tools:layout="@layout/fragment_add_project" >
+        <action
+            android:id="@+id/action_addProjectFragment_to_nav_projects"
+            app:destination="@id/nav_projects" />
+    </fragment>
 </navigation>
