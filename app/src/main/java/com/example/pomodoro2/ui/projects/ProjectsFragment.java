@@ -10,12 +10,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pomodoro2.R;
 import com.example.pomodoro2.database.Projects;
 import com.example.pomodoro2.database.Task;
 import com.example.pomodoro2.databinding.ProjectsFragmentBinding;
@@ -38,6 +42,10 @@ public class ProjectsFragment extends Fragment {
         binding = ProjectsFragmentBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        NavHostFragment navHostFragment = (NavHostFragment) fragmentManager.findFragmentById(R.id.nav_host_fragment_content_main);
+        NavController navController = navHostFragment.getNavController();
+
 //        final TextView textView = binding.textProjects;
 //        projectsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         binding.fabProjects.setOnClickListener(new View.OnClickListener() {
@@ -47,8 +55,9 @@ public class ProjectsFragment extends Fragment {
 //                projectsViewModel.insertProjects(projects);
 //                Toast.makeText(inflater.getContext(), "ABOBA", Toast.LENGTH_SHORT).show();
 //                projectsViewModel.deleteAllProjects();
-                Intent intent = new Intent(inflater.getContext(), AddProjectActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(inflater.getContext(), AddProjectActivity.class);
+//                startActivity(intent);
+                navController.navigate(R.id.action_nav_projects_to_addProjectFragment);
             }
         });
 

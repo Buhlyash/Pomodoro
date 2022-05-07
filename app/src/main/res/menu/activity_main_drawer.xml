@@ -7,22 +7,22 @@
         <item
             android:id="@+id/nav_today"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Today" />
+            android:title="Сегодня" />
         <item
             android:id="@+id/nav_done"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Done" />
+            android:title="Выполненные" />
         <item
             android:id="@+id/nav_projects"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Projects" />
+            android:title="Проекты" />
         <item
             android:id="@+id/nav_timer"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Timer" />
+            android:title="Таймер Помодоро" />
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_menu_camera"
-            android:title="About" />
+            android:title="О программе" />
     </group>
 </menu>

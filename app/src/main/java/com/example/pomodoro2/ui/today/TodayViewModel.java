@@ -11,6 +11,7 @@ import com.example.pomodoro2.database.Task;
 import com.example.pomodoro2.database.TasksDatabase;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class TodayViewModel extends AndroidViewModel {
 
@@ -38,6 +39,16 @@ public class TodayViewModel extends AndroidViewModel {
 
     public void deleteAllTask() {
         new DeleteAllTask().execute();
+    }
+
+    public void updateTask(Task task) {
+        new UpdateTask().execute(task);
+    }
+
+    public Task getTaskById(int id) throws ExecutionException, InterruptedException {
+        GetTaskById getTaskById = new GetTaskById();
+        Task task = getTaskById.execute(id).get();
+        return task;
     }
 
 
@@ -71,6 +82,28 @@ public class TodayViewModel extends AndroidViewModel {
         }
     }
 
+    private static class GetTaskById extends AsyncTask<Integer, Void, Task> {
+
+        @Override
+        protected Task doInBackground(Integer... integers) {
+            Task task = null;
+            if (integers != null && integers.length > 0) {
+                task = database.tasksDao().getTaskById(integers[0]);
+            }
+            return task;
+        }
+    }
+
+    private static class UpdateTask extends AsyncTask<Task, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Task... tasks) {
+            if (tasks != null && tasks.length > 0) {
+                database.tasksDao().updateTask(tasks[0]);
+            }
+            return null;
+        }
+    }
     //    public TodayViewModel() {
 //        mText = new MutableLiveData<>();
 //        mText.setValue("This is today fragment");

@@ -31,7 +31,7 @@ public class AddProjectActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         viewModel = new ViewModelProvider(this).get(ProjectsViewModel.class);
-        EditText editTextTitle = binding.editTextTitle;
+        EditText editTextTitle = binding.editTextProjectTitle;
 
         binding.buttonSaveProject.setOnClickListener(new View.OnClickListener() {
             @Override

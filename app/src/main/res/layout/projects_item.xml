@@ -18,7 +18,7 @@
             android:padding="14dp"
             android:text="TextView"
             android:textColor="@color/white"
-            android:background="@color/design_default_color_primary"
+            android:background="#FF954E"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
