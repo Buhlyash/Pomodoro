@@ -1,7 +1,6 @@
-package com.example.pomodoro2;
+package com.example.pomodoro2.ui.projects;
 
 import android.content.SharedPreferences;
-import android.graphics.Paint;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,29 +8,28 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pomodoro2.R;
+import com.example.pomodoro2.TaskAdapter;
 import com.example.pomodoro2.database.Task;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
+public class ProjectsTasksAdapter extends RecyclerView.Adapter<ProjectsTasksAdapter.ProjectTaskViewHolder> {
 
-    private List<Task> tasks;
+    private List<Task> projectTasks;
     private OnTasksClickListener onTasksClickListener;
 
-
-    public TaskAdapter(ArrayList<Task> tasks) {
-        this.tasks = tasks;
+    public ProjectsTasksAdapter(ArrayList<Task> projectTasks) {
+        this.projectTasks = projectTasks;
     }
 
     public interface OnTasksClickListener {
         void onTaskClick(int position);
-        void onLongClick(int position);
         void onCheckedChangeListener(int position);
     }
 
@@ -41,14 +39,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     @NonNull
     @Override
-    public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProjectTaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_item, parent, false);
-        return new TaskViewHolder(view);
+        return new ProjectsTasksAdapter.ProjectTaskViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
-        Task task = tasks.get(position);
+    public void onBindViewHolder(@NonNull ProjectTaskViewHolder holder, int position) {
+        Task task = projectTasks.get(position);
         holder.textViewTitle.setText(task.getTitle());
         holder.textViewDescription.setText(task.getDescription());
         int colorId;
@@ -69,39 +67,28 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     @Override
     public int getItemCount() {
-        return tasks.size();
+        return projectTasks.size();
     }
 
-    class TaskViewHolder extends RecyclerView.ViewHolder {
+    class ProjectTaskViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textViewTitle;
         private TextView textViewDescription;
         private CheckBox checkBox;
 
-        public TaskViewHolder(@NonNull View itemView) {
+        public ProjectTaskViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewDescription = itemView.findViewById(R.id.textViewDescription);
             checkBox = itemView.findViewById(R.id.checkBox);
-            checkBox.setChecked(false);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(onTasksClickListener != null) {
-                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(view.getContext());
-                        preferences.edit().putInt("task_id" ,tasks.get(getAdapterPosition()).getId()).apply();
+//                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(view.getContext());
+//                    preferences.edit().putInt("task_id" ,tasks.get(getAdapterPosition()).getId()).apply();
+                    if (onTasksClickListener != null) {
                         onTasksClickListener.onTaskClick(getAdapterPosition());
-
                     }
-                }
-            });
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    if(onTasksClickListener != null) {
-                        onTasksClickListener.onLongClick(getAdapterPosition());
-                    }
-                    return true;
                 }
             });
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -115,12 +102,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         }
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public List<Task> getProjectTasks() {
+        return projectTasks;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public void setProjectTasks(List<Task> projectTasks) {
+        this.projectTasks = projectTasks;
         notifyDataSetChanged();
     }
 }

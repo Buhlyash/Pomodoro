@@ -39,7 +39,7 @@ public class AddTaskActivity extends AppCompatActivity {
                 RadioButton radioButton = findViewById(radioButtonId);
                 int priority = Integer.parseInt(radioButton.getText().toString());
                 if (isFilled(title, description)) {
-                    Task task = new Task(title, description, priority, 1);
+                    Task task = new Task(title, description, priority, null, false);
                     viewModel.insertTask(task);
                     finish();
                 } else {

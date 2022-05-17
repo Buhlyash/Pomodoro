@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_today">
+    app:startDestination="@id/nav_today">
 
     <fragment
         android:id="@+id/nav_today"
@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_nav_projects_to_addProjectFragment"
             app:destination="@id/addProjectFragment" />
+        <action
+            android:id="@+id/action_nav_projects_to_projectTasksFragment"
+            app:destination="@id/projectTasksFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_timer"
@@ -61,5 +64,38 @@
         <action
             android:id="@+id/action_addProjectFragment_to_nav_projects"
             app:destination="@id/nav_projects" />
+    </fragment>
+    <fragment
+        android:id="@+id/projectTasksFragment"
+        android:name="com.example.pomodoro2.ui.projects.ProjectTasksFragment"
+        android:label="Задачи проекта"
+        tools:layout="@layout/fragment_project_tasks" >
+        <action
+            android:id="@+id/action_projectTasksFragment_to_addProjectTaskFragment"
+            app:destination="@id/addProjectTaskFragment" />
+        <action
+            android:id="@+id/action_projectTasksFragment_to_nav_projects"
+            app:destination="@id/nav_projects" />
+        <action
+            android:id="@+id/action_projectTasksFragment_to_editProjectTaskFragment"
+            app:destination="@id/editProjectTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addProjectTaskFragment"
+        android:name="com.example.pomodoro2.ui.projects.AddProjectTaskFragment"
+        android:label="Добавить задачу"
+        tools:layout="@layout/fragment_add_project_task" >
+        <action
+            android:id="@+id/action_addProjectTaskFragment_to_projectTasksFragment"
+            app:destination="@id/projectTasksFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProjectTaskFragment"
+        android:name="com.example.pomodoro2.ui.projects.EditProjectTaskFragment"
+        android:label="Редактировать задачу"
+        tools:layout="@layout/fragment_edit_project_task" >
+        <action
+            android:id="@+id/action_editProjectTaskFragment_to_projectTasksFragment"
+            app:destination="@id/projectTasksFragment" />
     </fragment>
 </navigation>

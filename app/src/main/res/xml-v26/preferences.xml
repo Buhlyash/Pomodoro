@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <SeekBarPreference
+        android:defaultValue="109"
+        android:key="com.example.timer.timer_length"
+        android:max="60"
+        android:progress="1"
+        android:title="Timer Length"
+        app:min="1"
+        app:showSeekBarValue="true"/>
+
+</PreferenceScreen>

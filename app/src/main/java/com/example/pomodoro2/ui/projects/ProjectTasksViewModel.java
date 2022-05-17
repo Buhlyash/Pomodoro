@@ -1,58 +1,62 @@
-package com.example.pomodoro2.ui.today;
+package com.example.pomodoro2.ui.projects;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.example.pomodoro2.database.Task;
 import com.example.pomodoro2.database.TasksDatabase;
+import com.example.pomodoro2.ui.today.TodayViewModel;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class TodayViewModel extends AndroidViewModel {
+public class ProjectTasksViewModel extends AndroidViewModel {
 
-    //    private final MutableLiveData<String> mText;
     private static TasksDatabase database;
-    private LiveData<List<Task>> tasks;
+    private LiveData<List<Task>> projectTasks;
 
-    public TodayViewModel(@NonNull Application application) {
+    public ProjectTasksViewModel(@NonNull Application application) {
         super(application);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(application.getApplicationContext());
+        int projectId = preferences.getInt("projectTask_id", -1);
         database = TasksDatabase.getInstance(getApplication());
-        tasks = database.tasksDao().getNotCompletedTasks();
+        projectTasks = database.tasksDao().getTasksByProjectId(projectId);
     }
 
-    public LiveData<List<Task>> getTasks() {
-        return tasks;
+    public LiveData<List<Task>> getProjectTasks() {
+        return projectTasks;
     }
 
-    public void insertTask(Task task) {
-        new InsertTask().execute(task);
+    public void insertProjectTask(Task task) {
+        new InsertProjectTask().execute(task);
     }
 
-    public void deleteTask(Task task) {
-        new DeleteTask().execute(task);
+    public void deleteProjectTask(Task task) {
+        new DeleteProjectTask().execute(task);
     }
 
     public void deleteAllTask() {
         new DeleteAllTask().execute();
     }
 
-    public void updateTask(Task task) {
-        new UpdateTask().execute(task);
+    public void updateProjectTask(Task task) {
+        new UpdateProjectTask().execute(task);
     }
 
-    public Task getTaskById(int id) throws ExecutionException, InterruptedException {
-        GetTaskById getTaskById = new GetTaskById();
-        Task task = getTaskById.execute(id).get();
+    public Task getProjectTaskById(int id) throws ExecutionException, InterruptedException {
+        GetProjectTaskById getProjectTaskById = new GetProjectTaskById();
+        Task task = getProjectTaskById.execute(id).get();
         return task;
     }
 
-
-    private static class InsertTask extends AsyncTask<Task, Void, Void> {
+    private static class InsertProjectTask extends AsyncTask<Task, Void, Void> {
         @Override
         protected Void doInBackground(Task... tasks) {
             if (tasks != null && tasks.length > 0) {
@@ -62,7 +66,7 @@ public class TodayViewModel extends AndroidViewModel {
         }
     }
 
-    private static class DeleteTask extends AsyncTask<Task, Void, Void> {
+    private static class DeleteProjectTask extends AsyncTask<Task, Void, Void> {
         @Override
         protected Void doInBackground(Task... tasks) {
             if (tasks != null && tasks.length > 0) {
@@ -82,7 +86,7 @@ public class TodayViewModel extends AndroidViewModel {
         }
     }
 
-    private static class GetTaskById extends AsyncTask<Integer, Void, Task> {
+    private static class GetProjectTaskById extends AsyncTask<Integer, Void, Task> {
 
         @Override
         protected Task doInBackground(Integer... integers) {
@@ -94,7 +98,7 @@ public class TodayViewModel extends AndroidViewModel {
         }
     }
 
-    private static class UpdateTask extends AsyncTask<Task, Void, Void> {
+    private static class UpdateProjectTask extends AsyncTask<Task, Void, Void> {
 
         @Override
         protected Void doInBackground(Task... tasks) {
@@ -104,13 +108,4 @@ public class TodayViewModel extends AndroidViewModel {
             return null;
         }
     }
-    //    public TodayViewModel() {
-//        mText = new MutableLiveData<>();
-//        mText.setValue("This is today fragment");
-//    }
-
-
-//    public LiveData<String> getText() {
-//        return mText;
-//    }
 }

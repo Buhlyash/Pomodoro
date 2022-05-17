@@ -57,5 +57,10 @@ dependencies {
     // Jetpack Compose Integration
     implementation "androidx.navigation:navigation-compose:$nav_version"
 
+    implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
+    implementation "androidx.preference:preference:1.2.0"
+//    implementation 'com.pavelsikun:material-seekbar-preference:2.3.0'
+    //noinspection GradleCompatible
+//    implementation 'com.android.support:preference-v7:26.1.0'
 
 }
