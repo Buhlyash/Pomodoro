@@ -1,56 +1,54 @@
-package com.example.pomodoro2;
+package com.example.pomodoro2.ui.done;
 
-import android.content.SharedPreferences;
 import android.graphics.Paint;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pomodoro2.R;
+import com.example.pomodoro2.TaskAdapter;
 import com.example.pomodoro2.database.Task;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
+public class DoneTaskAdapter extends RecyclerView.Adapter<DoneTaskAdapter.DoneTaskViewHolder> {
 
-    private List<Task> tasks;
+    private List<Task> doneTasks;
     private OnTasksClickListener onTasksClickListener;
 
-
-    public TaskAdapter(ArrayList<Task> tasks) {
-        this.tasks = tasks;
+    public DoneTaskAdapter(ArrayList<Task> doneTasks) {
+        this.doneTasks = doneTasks;
     }
 
     public interface OnTasksClickListener {
-        void onTaskClick(int position);
-        void onLongClick(int position);
         void onCheckedChangeListener(int position);
     }
 
-    public void setOnTasksClickListener(OnTasksClickListener onTasksClickListener) {
+    public void setOnTasksClickListener(DoneTaskAdapter.OnTasksClickListener onTasksClickListener) {
         this.onTasksClickListener = onTasksClickListener;
     }
 
     @NonNull
     @Override
-    public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DoneTaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_item, parent, false);
-        return new TaskViewHolder(view);
+        return new DoneTaskAdapter.DoneTaskViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
-        Task task = tasks.get(position);
+    public void onBindViewHolder(@NonNull DoneTaskViewHolder holder, int position) {
+        Task task = doneTasks.get(position);
         holder.textViewTitle.setText(task.getTitle());
+        holder.textViewTitle.setPaintFlags(holder.textViewTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         holder.textViewDescription.setText(task.getDescription());
+        holder.textViewDescription.setPaintFlags(holder.textViewDescription.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         int colorId;
         int priority = task.getPriority();
         switch (priority) {
@@ -69,41 +67,21 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     @Override
     public int getItemCount() {
-        return tasks.size();
+        return doneTasks.size();
     }
 
-    class TaskViewHolder extends RecyclerView.ViewHolder {
+    class DoneTaskViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textViewTitle;
         private TextView textViewDescription;
         private CheckBox checkBox;
 
-        public TaskViewHolder(@NonNull View itemView) {
+        public DoneTaskViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewDescription = itemView.findViewById(R.id.textViewDescription);
             checkBox = itemView.findViewById(R.id.checkBox);
-            checkBox.setChecked(false);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(onTasksClickListener != null) {
-                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(view.getContext());
-                        preferences.edit().putInt("task_id" ,tasks.get(getAdapterPosition()).getId()).apply();
-                        onTasksClickListener.onTaskClick(getAdapterPosition());
-
-                    }
-                }
-            });
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    if(onTasksClickListener != null) {
-                        onTasksClickListener.onLongClick(getAdapterPosition());
-                    }
-                    return true;
-                }
-            });
+            checkBox.setChecked(true);
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -115,12 +93,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         }
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public List<Task> getDoneTasks() {
+        return doneTasks;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public void setDoneTasks(List<Task> doneTasks) {
+        this.doneTasks = doneTasks;
         notifyDataSetChanged();
     }
 }

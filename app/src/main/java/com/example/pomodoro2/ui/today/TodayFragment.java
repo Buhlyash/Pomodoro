@@ -1,10 +1,12 @@
 package com.example.pomodoro2.ui.today;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,8 +24,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pomodoro2.AddTaskActivity;
 import com.example.pomodoro2.R;
 import com.example.pomodoro2.TaskAdapter;
+import com.example.pomodoro2.database.Projects;
 import com.example.pomodoro2.database.Task;
 import com.example.pomodoro2.databinding.TodayFragmentBinding;
+import com.example.pomodoro2.ui.projects.ProjectsViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +41,7 @@ public class TodayFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         todayViewModel =
                 new ViewModelProvider(this).get(TodayViewModel.class);
 
@@ -59,14 +64,14 @@ public class TodayFragment extends Fragment {
         });
 
         RecyclerView recyclerView = binding.recyclerView;
-        getData();
         adapter = new TaskAdapter(tasks);
         recyclerView.setLayoutManager(new LinearLayoutManager(inflater.getContext()));
+        getData();
         recyclerView.setAdapter(adapter);
         adapter.setOnTasksClickListener(new TaskAdapter.OnTasksClickListener() {
             @Override
             public void onTaskClick(int position) {
-                Toast.makeText(inflater.getContext(), "" + position, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(inflater.getContext(), "" + adapter.getTasks().get(position).getProjectId(), Toast.LENGTH_SHORT).show();
                 navController.navigate(R.id.toEditTodayFragmentAction);
             }
 
@@ -77,8 +82,18 @@ public class TodayFragment extends Fragment {
 
             @Override
             public void onCheckedChangeListener(int position) {
-
-                remove(position);
+//                Toast.makeText(inflater.getContext(), "" + , Toast.LENGTH_SHORT).show();
+                Task task = adapter.getTasks().get(position);
+                task.setCompleted(true);
+                todayViewModel.updateTask(task);
+//                task.setTitle(title);
+//                task.setDescription(description);
+//                task.setPriority(priority);
+//                todayViewModel.updateTask(task);
+//                InputMethodManager imm = (InputMethodManager) inflater.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+//                imm.hideSoftInputFromWindow(root.getWindowToken(), 0);
+//                navController.navigate(R.id.action_editTodayFragment_to_nav_today);
+//                remove(position);
             }
         });
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -118,6 +133,7 @@ public class TodayFragment extends Fragment {
         tasksFromDb.observe(getViewLifecycleOwner(), new Observer<List<Task>>() {
             @Override
             public void onChanged(List<Task> tasksFromLiveData) {
+
                 adapter.setTasks(tasksFromLiveData);
             }
         });

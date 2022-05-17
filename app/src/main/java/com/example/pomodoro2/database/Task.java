@@ -1,5 +1,6 @@
 package com.example.pomodoro2.database;
 
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -14,22 +15,26 @@ public class Task {
     private String title;
     private String description;
     private int priority;
-    private int projectId;
+    @Nullable
+    private Integer projectId;
+    private boolean isCompleted;
 
-    public Task(int id, String title, String description, int priority, int projectId) {
+    public Task(int id, String title, String description, int priority, @Nullable Integer projectId, boolean isCompleted) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.priority = priority;
         this.projectId = projectId;
+        this.isCompleted = isCompleted;
     }
 
     @Ignore
-    public Task(String title, String description, int priority, int projectId) {
+    public Task(String title, String description, int priority, @Nullable Integer projectId, boolean isCompleted) {
         this.title = title;
         this.description = description;
         this.priority = priority;
         this.projectId = projectId;
+        this.isCompleted = isCompleted;
     }
 
     public int getId() {
@@ -64,11 +69,20 @@ public class Task {
         this.priority = priority;
     }
 
-    public int getProjectId() {
+    @Nullable
+    public Integer getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(int projectId) {
+    public void setProjectId(@Nullable Integer projectId) {
         this.projectId = projectId;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
     }
 }

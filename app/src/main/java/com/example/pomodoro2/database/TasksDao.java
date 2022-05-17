@@ -19,6 +19,15 @@ public interface TasksDao {
     @Query("SELECT * FROM tasks WHERE task_id = :id")
     Task getTaskById(int id);
 
+    @Query("SELECT * FROM tasks WHERE isCompleted = 0 AND projectId IS NULL")
+    LiveData<List<Task>> getNotCompletedTasks();
+
+    @Query("SELECT * FROM tasks WHERE isCompleted = 1")
+    LiveData<List<Task>> getCompletedTasks();
+
+    @Query("SELECT * FROM tasks WHERE projectId = :projectId")
+    LiveData<List<Task>> getTasksByProjectId(int projectId);
+
     @Insert
     void insertTask(Task task);
 
@@ -27,6 +36,9 @@ public interface TasksDao {
 
     @Delete
     void deleteTasks(Task task);
+
+    @Query("DELETE FROM tasks WHERE projectId = :projectId")
+    void deleteTasksInProject(int projectId);
 
     @Query("DELETE FROM tasks")
     void deleteAllTasks();
