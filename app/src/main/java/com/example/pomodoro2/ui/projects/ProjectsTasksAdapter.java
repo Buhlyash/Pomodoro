@@ -1,7 +1,5 @@
 package com.example.pomodoro2.ui.projects;
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pomodoro2.R;
-import com.example.pomodoro2.TaskAdapter;
 import com.example.pomodoro2.database.Task;
 
 import java.util.ArrayList;
@@ -40,7 +37,7 @@ public class ProjectsTasksAdapter extends RecyclerView.Adapter<ProjectsTasksAdap
     @NonNull
     @Override
     public ProjectTaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.no_play_task_item, parent, false);
         return new ProjectsTasksAdapter.ProjectTaskViewHolder(view);
     }
 
@@ -78,9 +75,9 @@ public class ProjectsTasksAdapter extends RecyclerView.Adapter<ProjectsTasksAdap
 
         public ProjectTaskViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewTitle = itemView.findViewById(R.id.textViewTitle);
-            textViewDescription = itemView.findViewById(R.id.textViewDescription);
-            checkBox = itemView.findViewById(R.id.checkBox);
+            textViewTitle = itemView.findViewById(R.id.textViewTitleNoPlay);
+            textViewDescription = itemView.findViewById(R.id.textViewDescriptionNoPLay);
+            checkBox = itemView.findViewById(R.id.checkBoxNoPlay);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

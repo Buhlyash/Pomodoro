@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsActivity">
+    tools:context=".ui.timer.SettingsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/settings_fragment"
-        android:name="com.example.pomodoro2.SettingsPrefFragment"
+        android:name="com.example.pomodoro2.ui.timer.SettingsPrefFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

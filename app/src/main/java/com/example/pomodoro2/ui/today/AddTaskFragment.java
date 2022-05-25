@@ -1,7 +1,6 @@
-package com.example.pomodoro2.ui.projects;
+package com.example.pomodoro2.ui.today;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,30 +21,28 @@ import android.widget.Toast;
 import com.example.pomodoro2.AddTaskActivity;
 import com.example.pomodoro2.R;
 import com.example.pomodoro2.database.Task;
-import com.example.pomodoro2.databinding.FragmentAddProjectBinding;
-import com.example.pomodoro2.databinding.FragmentAddProjectTaskBinding;
+import com.example.pomodoro2.databinding.FragmentAddTaskBinding;
+import com.example.pomodoro2.databinding.FragmentEditProjectTaskBinding;
 
-import java.util.Objects;
-
-public class AddProjectTaskFragment extends Fragment {
-    private FragmentAddProjectTaskBinding binding;
-    private ProjectTasksViewModel projectTasksViewModel;
+public class AddTaskFragment extends Fragment {
+    private FragmentAddTaskBinding binding;
+    private TodayViewModel todayViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        projectTasksViewModel = new ViewModelProvider(this).get(ProjectTasksViewModel.class);
-
-        binding = FragmentAddProjectTaskBinding.inflate(inflater, container, false);
+        binding = FragmentAddTaskBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         NavHostFragment navHostFragment = (NavHostFragment) fragmentManager.findFragmentById(R.id.nav_host_fragment_content_main);
         NavController navController = navHostFragment.getNavController();
 
+        todayViewModel = new ViewModelProvider(this).get(TodayViewModel.class);
         EditText editTextTitle = binding.editTextTitle;
         EditText editTextDescription = binding.editTextDescriprion;
-        RadioGroup radioGroup = binding.radioGroupProjectPriority;
+        RadioGroup radioGroup = binding.radioGroupPriority;
+
         binding.buttonSaveNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,10 +52,8 @@ public class AddProjectTaskFragment extends Fragment {
                 RadioButton radioButton = requireActivity().findViewById(radioButtonId);
                 int priority = Integer.parseInt(radioButton.getText().toString());
                 if (isFilled(title, description)) {
-                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-                    int projectId = preferences.getInt("projectTask_id", -1);
-                    Task task = new Task(title, description, priority, projectId, false);
-                    projectTasksViewModel.insertProjectTask(task);
+                    Task task = new Task(title, description, priority, null, false);
+                    todayViewModel.insertTask(task);
                     InputMethodManager imm = (InputMethodManager) inflater.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(root.getWindowToken(), 0);
                     navController.popBackStack();
@@ -72,6 +66,7 @@ public class AddProjectTaskFragment extends Fragment {
                 return !title.isEmpty() && !description.isEmpty();
             }
         });
+
         return root;
     }
 }

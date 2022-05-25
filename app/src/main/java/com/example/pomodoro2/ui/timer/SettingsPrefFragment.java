@@ -1,9 +1,11 @@
-package com.example.pomodoro2;
+package com.example.pomodoro2.ui.timer;
 
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.preference.PreferenceFragmentCompat;
+
+import com.example.pomodoro2.R;
 
 public class SettingsPrefFragment extends PreferenceFragmentCompat {
     @Override

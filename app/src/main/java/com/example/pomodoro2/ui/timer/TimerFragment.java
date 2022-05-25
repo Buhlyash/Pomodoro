@@ -1,6 +1,7 @@
 package com.example.pomodoro2.ui.timer;
 
 import androidx.annotation.RequiresApi;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
@@ -13,6 +14,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -47,15 +50,17 @@ public class TimerFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        TimerViewModel timerViewModel =
-                new ViewModelProvider(this).get(TimerViewModel.class);
-
         binding = com.example.pomodoro2.databinding.TimerFragmentBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         textView = binding.getRoot().findViewById(R.id.textViewCountDown);
         progressBar = binding.getRoot().findViewById(R.id.progressCountDown);
 
         binding.fabPlay.setOnClickListener(view -> {
+            if (PrefUtil.getCountOfTimer(getContext()) > PrefUtil.getCountOfRest(getContext())) {
+                PrefUtil.setCountOfRest(PrefUtil.getCountOfRest(getContext()) + 1, getContext());
+            } else {
+                PrefUtil.setCountOfTimer(PrefUtil.getCountOfTimer(getContext()) + 1, getContext());
+            }
             startTimer();
             timerState = TimerState.Running;
             updateButtons();
@@ -115,6 +120,10 @@ public class TimerFragment extends Fragment {
     }
 
     private void onTimerFinished() {
+        if (PrefUtil.getCountOfTimer(getContext()) == 4 && PrefUtil.getCountOfRest(getContext()) == 4) {
+            PrefUtil.setCountOfTimer(0, getContext());
+            PrefUtil.setCountOfRest(0, getContext());
+        }
         timerState = TimerState.Stopped;
         setNewTimerLength();
 
@@ -143,7 +152,14 @@ public class TimerFragment extends Fragment {
     }
 
     private void setNewTimerLength() {
-        int lengthInMinutes = PrefUtil.getTimerLength(getContext());
+        int lengthInMinutes;
+        if (PrefUtil.getCountOfTimer(getContext()) > PrefUtil.getCountOfRest(getContext()) && PrefUtil.getCountOfTimer(getContext()) != 4) {
+            lengthInMinutes = PrefUtil.getRestLength(getContext());
+        } else if (PrefUtil.getCountOfTimer(getContext()) == PrefUtil.getCountOfRest(getContext()) && PrefUtil.getCountOfTimer(getContext()) != 4){
+            lengthInMinutes = PrefUtil.getTimerLength(getContext());
+        } else {
+            lengthInMinutes = PrefUtil.getLongRestLength(getContext());
+        }
         timerLengthSeconds = lengthInMinutes * 60L;
 
         progressBar.setMax((int)timerLengthSeconds);

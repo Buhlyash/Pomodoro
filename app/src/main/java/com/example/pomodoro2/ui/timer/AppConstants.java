@@ -1,4 +1,4 @@
-package com.example.pomodoro2;
+package com.example.pomodoro2.ui.timer;
 
 public class AppConstants {
     public static final String ACTION_STOP = "stop";

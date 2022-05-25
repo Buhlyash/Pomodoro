@@ -13,6 +13,12 @@
         <action
             android:id="@+id/toEditTodayFragmentAction"
             app:destination="@id/editTodayFragment" />
+        <action
+            android:id="@+id/action_nav_today_to_nav_timer"
+            app:destination="@id/nav_timer" />
+        <action
+            android:id="@+id/action_nav_today_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
     </fragment>
 
     <fragment
@@ -98,4 +104,8 @@
             android:id="@+id/action_editProjectTaskFragment_to_projectTasksFragment"
             app:destination="@id/projectTasksFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/addTaskFragment"
+        android:name="com.example.pomodoro2.ui.today.AddTaskFragment"
+        android:label="Добавить задачу" />
 </navigation>

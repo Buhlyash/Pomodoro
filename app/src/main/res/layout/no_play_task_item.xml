@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:layout_margin="8dp">
@@ -11,43 +12,32 @@
 
 
         <TextView
-            android:id="@+id/textViewTitle"
+            android:id="@+id/textViewTitleNoPlay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="14dp"
             android:text="TextView"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@+id/imageView"
-            app:layout_constraintStart_toEndOf="@+id/checkBox"
+            app:layout_constraintStart_toEndOf="@id/checkBoxNoPlay"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textViewDescription"
+            android:id="@+id/textViewDescriptionNoPLay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textViewTitle"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+            app:layout_constraintStart_toStartOf="@+id/textViewTitleNoPlay"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitleNoPlay" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/checkBoxNoPlay"
             android:layout_width="35dp"
             android:layout_height="48dp"
-            app:layout_constraintEnd_toStartOf="@id/textViewTitle"
+            app:layout_constraintEnd_toStartOf="@+id/textViewTitleNoPlay"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="35dp"
-            android:layout_height="48dp"
-            app:layout_constraintStart_toEndOf="@id/textViewTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_media_play" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

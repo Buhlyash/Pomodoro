@@ -15,7 +15,6 @@ import java.util.concurrent.ExecutionException;
 
 public class TodayViewModel extends AndroidViewModel {
 
-    //    private final MutableLiveData<String> mText;
     private static TasksDatabase database;
     private LiveData<List<Task>> tasks;
 
