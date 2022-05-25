@@ -13,10 +13,48 @@ public class PrefUtil {
     private static final String TIMER_STATE_ID = "com.example.timer.timer_state";
 
     private static final String TIMER_LENGTH_ID = "com.example.timer.timer_length";
+    private static final String REST_LENGTH_ID = "com.example.timer.rest_length";
+    private static final String LONG_REST_LENGTH_ID = "com.example.timer.long_rest_length";
+
+
+    private static final String COUNT_OF_TIMER_ID = "com.example.timer.count_of_timer";
+    private static final String COUNT_OF_REST_ID = "com.example.timer.count_of_rest";
 
     public static int getTimerLength(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getInt(TIMER_LENGTH_ID, 25);
+    }
+
+    public static int getRestLength(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getInt(REST_LENGTH_ID, 5);
+    }
+
+    public static int getLongRestLength(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getInt(LONG_REST_LENGTH_ID, 15);
+    }
+
+    public static int getCountOfTimer (Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return  preferences.getInt(COUNT_OF_TIMER_ID, 0);
+    }
+
+    public static void setCountOfTimer(int count, Context context) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        editor.putInt(COUNT_OF_TIMER_ID, count);
+        editor.apply();
+    }
+
+    public static int getCountOfRest (Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return  preferences.getInt(COUNT_OF_REST_ID, 0);
+    }
+
+    public static void setCountOfRest(int count, Context context) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        editor.putInt(COUNT_OF_REST_ID, count);
+        editor.apply();
     }
 
     public static long getPreviousTimerLengthSeconds(Context context) {

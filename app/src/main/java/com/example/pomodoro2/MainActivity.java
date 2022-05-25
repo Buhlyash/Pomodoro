@@ -3,20 +3,14 @@ package com.example.pomodoro2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Menu;
-import android.widget.Toast;
 
-import com.example.pomodoro2.database.Projects;
-import com.example.pomodoro2.databinding.TodayFragmentBinding;
 import com.example.pomodoro2.ui.projects.ProjectsViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.pomodoro2.ui.timer.SettingsActivity;
+import com.example.pomodoro2.util.PrefUtil;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -25,10 +19,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pomodoro2.databinding.ActivityMainBinding;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        PrefUtil.setCountOfTimer(0, this);
+        PrefUtil.setCountOfRest(0, this);
     }
 
     @Override

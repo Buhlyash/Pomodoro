@@ -9,9 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pomodoro2.R;
-import com.example.pomodoro2.TaskAdapter;
 import com.example.pomodoro2.database.Projects;
-import com.example.pomodoro2.database.Task;
 
 import java.util.ArrayList;
 import java.util.List;

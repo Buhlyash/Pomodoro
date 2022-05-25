@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pomodoro2.R;
-import com.example.pomodoro2.TaskAdapter;
 import com.example.pomodoro2.database.Task;
 
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class DoneTaskAdapter extends RecyclerView.Adapter<DoneTaskAdapter.DoneTa
     @NonNull
     @Override
     public DoneTaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.no_play_task_item, parent, false);
         return new DoneTaskAdapter.DoneTaskViewHolder(view);
     }
 
@@ -78,9 +77,9 @@ public class DoneTaskAdapter extends RecyclerView.Adapter<DoneTaskAdapter.DoneTa
 
         public DoneTaskViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewTitle = itemView.findViewById(R.id.textViewTitle);
-            textViewDescription = itemView.findViewById(R.id.textViewDescription);
-            checkBox = itemView.findViewById(R.id.checkBox);
+            textViewTitle = itemView.findViewById(R.id.textViewTitleNoPlay);
+            textViewDescription = itemView.findViewById(R.id.textViewDescriptionNoPLay);
+            checkBox = itemView.findViewById(R.id.checkBoxNoPlay);
             checkBox.setChecked(true);
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

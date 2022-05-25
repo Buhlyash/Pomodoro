@@ -1,15 +1,15 @@
 package com.example.pomodoro2.ui.today;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LiveData;
@@ -23,11 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pomodoro2.AddTaskActivity;
 import com.example.pomodoro2.R;
-import com.example.pomodoro2.TaskAdapter;
-import com.example.pomodoro2.database.Projects;
 import com.example.pomodoro2.database.Task;
 import com.example.pomodoro2.databinding.TodayFragmentBinding;
-import com.example.pomodoro2.ui.projects.ProjectsViewModel;
+import com.example.pomodoro2.ui.timer.TimerFragment;
+import com.example.pomodoro2.util.NotificationUtil;
+import com.example.pomodoro2.util.PrefUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +41,6 @@ public class TodayFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         todayViewModel =
                 new ViewModelProvider(this).get(TodayViewModel.class);
 
@@ -52,14 +51,10 @@ public class TodayFragment extends Fragment {
         NavHostFragment navHostFragment = (NavHostFragment) fragmentManager.findFragmentById(R.id.nav_host_fragment_content_main);
         NavController navController = navHostFragment.getNavController();
 
-
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-                Intent intent = new Intent(inflater.getContext(), AddTaskActivity.class);
-                startActivity(intent);
+                navController.navigate(R.id.action_nav_today_to_addTaskFragment);
             }
         });
 
@@ -71,7 +66,6 @@ public class TodayFragment extends Fragment {
         adapter.setOnTasksClickListener(new TaskAdapter.OnTasksClickListener() {
             @Override
             public void onTaskClick(int position) {
-//                Toast.makeText(inflater.getContext(), "" + adapter.getTasks().get(position).getProjectId(), Toast.LENGTH_SHORT).show();
                 navController.navigate(R.id.toEditTodayFragmentAction);
             }
 
@@ -81,19 +75,15 @@ public class TodayFragment extends Fragment {
             }
 
             @Override
+            public void onImageClick(int position) {
+                navController.navigate(R.id.action_nav_today_to_nav_timer);
+            }
+
+            @Override
             public void onCheckedChangeListener(int position) {
-//                Toast.makeText(inflater.getContext(), "" + , Toast.LENGTH_SHORT).show();
                 Task task = adapter.getTasks().get(position);
                 task.setCompleted(true);
                 todayViewModel.updateTask(task);
-//                task.setTitle(title);
-//                task.setDescription(description);
-//                task.setPriority(priority);
-//                todayViewModel.updateTask(task);
-//                InputMethodManager imm = (InputMethodManager) inflater.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
-//                imm.hideSoftInputFromWindow(root.getWindowToken(), 0);
-//                navController.navigate(R.id.action_editTodayFragment_to_nav_today);
-//                remove(position);
             }
         });
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -108,12 +98,6 @@ public class TodayFragment extends Fragment {
             }
         });
         itemTouchHelper.attachToRecyclerView(recyclerView);
-//        tasks.add(new Task(1, "Title", "Description", 1));
-//        tasks.add(new Task(2, "Title2", "Description2", 1));
-//        TaskAdapter adapter = new TaskAdapter(tasks);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(inflater.getContext()));
-//        recyclerView.setAdapter(adapter);
-
         return root;
     }
 

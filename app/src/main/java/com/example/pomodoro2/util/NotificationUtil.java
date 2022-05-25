@@ -15,11 +15,10 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
-import com.example.pomodoro2.AppConstants;
+import com.example.pomodoro2.ui.timer.AppConstants;
 import com.example.pomodoro2.MainActivity;
 import com.example.pomodoro2.R;
 import com.example.pomodoro2.TimerNotificationActionReceiver;
-import com.example.pomodoro2.ui.timer.TimerFragment;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -64,9 +63,11 @@ public class NotificationUtil {
 
         DateFormat df = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
 
+        Date date = new Date(wakeUpTime);
+        SimpleDateFormat formatForDateNow = new SimpleDateFormat("hh:mm:ss");
         NotificationCompat.Builder nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true);
         nBuilder.setContentTitle("Timer is Running.")
-                .setContentText(String.format(Locale.getDefault(),"End: %s", df.format(new Date(wakeUpTime))))
+                .setContentText(String.format(Locale.getDefault(),"End: %s", formatForDateNow.format(date)))
                 .setContentIntent(getPendingIntentWithStack(context, MainActivity.class))
                 .setOngoing(true)
                 .addAction(R.drawable.ic_stop, "Stop", stopPendingIntent)

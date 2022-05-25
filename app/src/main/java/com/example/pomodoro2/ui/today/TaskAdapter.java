@@ -1,19 +1,20 @@
-package com.example.pomodoro2;
+package com.example.pomodoro2.ui.today;
 
 import android.content.SharedPreferences;
-import android.graphics.Paint;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pomodoro2.R;
 import com.example.pomodoro2.database.Task;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         void onTaskClick(int position);
         void onLongClick(int position);
         void onCheckedChangeListener(int position);
+        void onImageClick(int position);
     }
 
     public void setOnTasksClickListener(OnTasksClickListener onTasksClickListener) {
@@ -77,12 +79,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         private TextView textViewTitle;
         private TextView textViewDescription;
         private CheckBox checkBox;
+        private ImageView imageView;
 
         public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewDescription = itemView.findViewById(R.id.textViewDescription);
             checkBox = itemView.findViewById(R.id.checkBox);
+            imageView = itemView.findViewById(R.id.imageView);
             checkBox.setChecked(false);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -91,7 +95,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(view.getContext());
                         preferences.edit().putInt("task_id" ,tasks.get(getAdapterPosition()).getId()).apply();
                         onTasksClickListener.onTaskClick(getAdapterPosition());
-
                     }
                 }
             });
@@ -109,6 +112,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     if (onTasksClickListener != null) {
                         onTasksClickListener.onCheckedChangeListener(getAdapterPosition());
+                    }
+                }
+            });
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(onTasksClickListener != null) {
+                        onTasksClickListener.onImageClick(getAdapterPosition());
                     }
                 }
             });

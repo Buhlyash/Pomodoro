@@ -6,23 +6,23 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_today"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_today_tasks"
             android:title="Сегодня" />
         <item
             android:id="@+id/nav_done"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_done_tasks"
             android:title="Выполненные" />
         <item
             android:id="@+id/nav_projects"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_projects"
             android:title="Проекты" />
         <item
             android:id="@+id/nav_timer"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_timer"
             android:title="Таймер Помодоро" />
         <item
             android:id="@+id/nav_about"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_about_program"
             android:title="О программе" />
     </group>
 </menu>

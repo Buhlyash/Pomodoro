@@ -2,11 +2,27 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <SeekBarPreference
-        android:defaultValue="109"
+        android:defaultValue="25"
         android:key="com.example.timer.timer_length"
         android:max="60"
         android:progress="1"
         android:title="Timer Length"
+        app:min="1"
+        app:showSeekBarValue="true"/>
+    <SeekBarPreference
+        android:defaultValue="5"
+        android:key="com.example.timer.rest_length"
+        android:max="60"
+        android:progress="1"
+        android:title="Rest Length"
+        app:min="1"
+        app:showSeekBarValue="true"/>
+    <SeekBarPreference
+        android:defaultValue="15"
+        android:key="com.example.timer.long_rest_length"
+        android:max="60"
+        android:progress="1"
+        android:title="Long rest Length"
         app:min="1"
         app:showSeekBarValue="true"/>
 

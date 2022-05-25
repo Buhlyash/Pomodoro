@@ -7,6 +7,7 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.pomodoro2.ui.timer.AppConstants;
 import com.example.pomodoro2.ui.timer.TimerFragment;
 import com.example.pomodoro2.util.NotificationUtil;
 import com.example.pomodoro2.util.PrefUtil;
@@ -41,7 +42,14 @@ public class TimerNotificationActionReceiver extends BroadcastReceiver {
                 NotificationUtil.showTimerRunning(context, wakeUpTime);
                 break;
             case AppConstants.ACTION_START:
-                int minutesRemaining = PrefUtil.getTimerLength(context);
+                int minutesRemaining;
+                if (PrefUtil.getCountOfTimer(context) > PrefUtil.getCountOfRest(context) && PrefUtil.getCountOfTimer(context) != 4) {
+                    minutesRemaining = PrefUtil.getRestLength(context);
+                } else if (PrefUtil.getCountOfTimer(context) == PrefUtil.getCountOfRest(context) && PrefUtil.getCountOfTimer(context) != 4){
+                    minutesRemaining = PrefUtil.getTimerLength(context);
+                } else {
+                    minutesRemaining = PrefUtil.getLongRestLength(context);
+                }
                 long secondsRemaining3 = minutesRemaining * 60L;
                 long wakeUpTime2 = TimerFragment.setAlarm(context, TimerFragment.getNowSeconds(), secondsRemaining3);
                 PrefUtil.setTimerState(TimerFragment.TimerState.Running, context);

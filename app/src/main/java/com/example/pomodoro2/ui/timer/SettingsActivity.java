@@ -1,4 +1,4 @@
-package com.example.pomodoro2;
+package com.example.pomodoro2.ui.timer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -6,6 +6,8 @@ import androidx.preference.SeekBarPreference;
 
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.pomodoro2.R;
 
 import java.util.Objects;
 
