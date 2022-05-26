@@ -28,6 +28,7 @@ import com.example.pomodoro2.databinding.TodayFragmentBinding;
 import com.example.pomodoro2.ui.timer.TimerFragment;
 import com.example.pomodoro2.util.NotificationUtil;
 import com.example.pomodoro2.util.PrefUtil;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,9 +75,41 @@ public class TodayFragment extends Fragment {
                 remove(position);
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onImageClick(int position) {
-                navController.navigate(R.id.action_nav_today_to_nav_timer);
+                if (PrefUtil.getTimerState(requireContext()) == TimerFragment.TimerState.Stopped) {
+                    if (PrefUtil.getCountOfTimer(requireContext()) > PrefUtil.getCountOfRest(requireContext()) && PrefUtil.getCountOfTimer(requireContext()) != 4) {
+                        Snackbar.make(binding.recyclerView, "Время для отдыха!", Snackbar.LENGTH_LONG)
+                                .show();
+                    } else if (PrefUtil.getCountOfTimer(requireContext()) == PrefUtil.getCountOfRest(requireContext()) && PrefUtil.getCountOfTimer(requireContext()) != 4){
+                        Snackbar.make(binding.recyclerView, "Время для работы!", Snackbar.LENGTH_LONG)
+                                .show();
+                    } else {
+                        Snackbar.make(binding.recyclerView, "Время для отдыха!", Snackbar.LENGTH_LONG)
+                                .show();
+                    }
+                    int minutesRemaining;
+                    if (PrefUtil.getCountOfTimer(requireContext()) > PrefUtil.getCountOfRest(requireContext()) && PrefUtil.getCountOfTimer(requireContext()) != 4) {
+                        minutesRemaining = PrefUtil.getRestLength(requireContext());
+                    } else if (PrefUtil.getCountOfTimer(requireContext()) == PrefUtil.getCountOfRest(requireContext()) && PrefUtil.getCountOfTimer(requireContext()) != 4){
+                        minutesRemaining = PrefUtil.getTimerLength(requireContext());
+                    } else {
+                        minutesRemaining = PrefUtil.getLongRestLength(requireContext());
+                    }
+                    if (PrefUtil.getCountOfTimer(getContext()) > PrefUtil.getCountOfRest(getContext())) {
+                        PrefUtil.setCountOfRest(PrefUtil.getCountOfRest(getContext()) + 1, getContext());
+                    } else {
+                        PrefUtil.setCountOfTimer(PrefUtil.getCountOfTimer(getContext()) + 1, getContext());
+                    }
+                    long secondsRemaining3 = minutesRemaining * 60L;
+                    long wakeUpTime2 = TimerFragment.setAlarm(requireContext(), TimerFragment.getNowSeconds(), secondsRemaining3);
+                    PrefUtil.setTimerState(TimerFragment.TimerState.Running, requireContext());
+                    PrefUtil.setSecondsRemaining(secondsRemaining3, requireContext());
+                    NotificationUtil.showTimerRunning(requireContext(), wakeUpTime2);
+                } else {
+                    Snackbar.make(binding.recyclerView, "Таймер идет!", Snackbar.LENGTH_SHORT).show();
+                }
             }
 
             @Override

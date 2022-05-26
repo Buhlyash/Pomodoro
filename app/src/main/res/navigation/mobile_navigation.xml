@@ -14,9 +14,6 @@
             android:id="@+id/toEditTodayFragmentAction"
             app:destination="@id/editTodayFragment" />
         <action
-            android:id="@+id/action_nav_today_to_nav_timer"
-            app:destination="@id/nav_timer" />
-        <action
             android:id="@+id/action_nav_today_to_addTaskFragment"
             app:destination="@id/addTaskFragment" />
     </fragment>
