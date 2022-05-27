@@ -12,16 +12,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pomodoro2.AddTaskActivity;
+import com.example.pomodoro2.MainActivity;
 import com.example.pomodoro2.R;
 import com.example.pomodoro2.database.Task;
 import com.example.pomodoro2.databinding.TodayFragmentBinding;
@@ -80,14 +83,11 @@ public class TodayFragment extends Fragment {
             public void onImageClick(int position) {
                 if (PrefUtil.getTimerState(requireContext()) == TimerFragment.TimerState.Stopped) {
                     if (PrefUtil.getCountOfTimer(requireContext()) > PrefUtil.getCountOfRest(requireContext()) && PrefUtil.getCountOfTimer(requireContext()) != 4) {
-                        Snackbar.make(binding.recyclerView, "Время для отдыха!", Snackbar.LENGTH_LONG)
-                                .show();
+                        Toast.makeText(requireContext(), "Время для отдыха!", Toast.LENGTH_SHORT).show();
                     } else if (PrefUtil.getCountOfTimer(requireContext()) == PrefUtil.getCountOfRest(requireContext()) && PrefUtil.getCountOfTimer(requireContext()) != 4){
-                        Snackbar.make(binding.recyclerView, "Время для работы!", Snackbar.LENGTH_LONG)
-                                .show();
+                        Toast.makeText(requireContext(), "Время для работы!", Toast.LENGTH_SHORT).show();
                     } else {
-                        Snackbar.make(binding.recyclerView, "Время для отдыха!", Snackbar.LENGTH_LONG)
-                                .show();
+                        Toast.makeText(requireContext(), "Время для большого отдыха!", Toast.LENGTH_SHORT).show();
                     }
                     int minutesRemaining;
                     if (PrefUtil.getCountOfTimer(requireContext()) > PrefUtil.getCountOfRest(requireContext()) && PrefUtil.getCountOfTimer(requireContext()) != 4) {
@@ -108,8 +108,9 @@ public class TodayFragment extends Fragment {
                     PrefUtil.setSecondsRemaining(secondsRemaining3, requireContext());
                     NotificationUtil.showTimerRunning(requireContext(), wakeUpTime2);
                 } else {
-                    Snackbar.make(binding.recyclerView, "Таймер идет!", Snackbar.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Таймер идет!", Toast.LENGTH_SHORT).show();
                 }
+                navController.navigate(R.id.action_nav_today_to_nav_timer);
             }
 
             @Override

@@ -16,6 +16,11 @@
         <action
             android:id="@+id/action_nav_today_to_addTaskFragment"
             app:destination="@id/addTaskFragment" />
+        <action
+            android:id="@+id/action_nav_today_to_nav_timer"
+            app:destination="@id/nav_timer"
+            app:popUpTo="@id/nav_today"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -82,6 +87,11 @@
         <action
             android:id="@+id/action_projectTasksFragment_to_editProjectTaskFragment"
             app:destination="@id/editProjectTaskFragment" />
+        <action
+            android:id="@+id/action_projectTasksFragment_to_nav_timer"
+            app:destination="@id/nav_timer"
+            app:popUpTo="@id/nav_projects"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/addProjectTaskFragment"

@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ public class ProjectsTasksAdapter extends RecyclerView.Adapter<ProjectsTasksAdap
     public interface OnTasksClickListener {
         void onTaskClick(int position);
         void onCheckedChangeListener(int position);
+        void onImageClick(int position);
     }
 
     public void setOnTasksClickListener(OnTasksClickListener onTasksClickListener) {
@@ -37,7 +39,7 @@ public class ProjectsTasksAdapter extends RecyclerView.Adapter<ProjectsTasksAdap
     @NonNull
     @Override
     public ProjectTaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.no_play_task_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_item, parent, false);
         return new ProjectsTasksAdapter.ProjectTaskViewHolder(view);
     }
 
@@ -72,12 +74,14 @@ public class ProjectsTasksAdapter extends RecyclerView.Adapter<ProjectsTasksAdap
         private TextView textViewTitle;
         private TextView textViewDescription;
         private CheckBox checkBox;
+        private ImageView imageView;
 
         public ProjectTaskViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewTitle = itemView.findViewById(R.id.textViewTitleNoPlay);
-            textViewDescription = itemView.findViewById(R.id.textViewDescriptionNoPLay);
-            checkBox = itemView.findViewById(R.id.checkBoxNoPlay);
+            textViewTitle = itemView.findViewById(R.id.textViewTitle);
+            textViewDescription = itemView.findViewById(R.id.textViewDescription);
+            checkBox = itemView.findViewById(R.id.checkBox);
+            imageView = itemView.findViewById(R.id.imageView);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -93,6 +97,14 @@ public class ProjectsTasksAdapter extends RecyclerView.Adapter<ProjectsTasksAdap
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     if (onTasksClickListener != null) {
                         onTasksClickListener.onCheckedChangeListener(getAdapterPosition());
+                    }
+                }
+            });
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onTasksClickListener != null) {
+                        onTasksClickListener.onImageClick(getAdapterPosition());
                     }
                 }
             });

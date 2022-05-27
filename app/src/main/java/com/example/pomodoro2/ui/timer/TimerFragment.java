@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pomodoro2.R;
 import com.example.pomodoro2.TimerExpiredReciver;
@@ -50,12 +51,25 @@ public class TimerFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        if (manager.getBackStackEntryCount() > 0) {
+            FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
+            manager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+
         binding = com.example.pomodoro2.databinding.TimerFragmentBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         textView = binding.getRoot().findViewById(R.id.textViewCountDown);
         progressBar = binding.getRoot().findViewById(R.id.progressCountDown);
 
         binding.fabPlay.setOnClickListener(view -> {
+            if (PrefUtil.getCountOfTimer(requireContext()) > PrefUtil.getCountOfRest(requireContext()) && PrefUtil.getCountOfTimer(requireContext()) != 4) {
+                Toast.makeText(requireContext(), "Время для отдыха!", Toast.LENGTH_SHORT).show();
+            } else if (PrefUtil.getCountOfTimer(requireContext()) == PrefUtil.getCountOfRest(requireContext()) && PrefUtil.getCountOfTimer(requireContext()) != 4){
+                Toast.makeText(requireContext(), "Время для работы!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(requireContext(), "Время для большого отдыха!", Toast.LENGTH_SHORT).show();
+            }
             if (PrefUtil.getCountOfTimer(getContext()) > PrefUtil.getCountOfRest(getContext())) {
                 PrefUtil.setCountOfRest(PrefUtil.getCountOfRest(getContext()) + 1, getContext());
             } else {
