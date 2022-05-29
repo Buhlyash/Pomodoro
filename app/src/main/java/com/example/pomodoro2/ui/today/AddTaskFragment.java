@@ -18,11 +18,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.example.pomodoro2.AddTaskActivity;
 import com.example.pomodoro2.R;
 import com.example.pomodoro2.database.Task;
 import com.example.pomodoro2.databinding.FragmentAddTaskBinding;
-import com.example.pomodoro2.databinding.FragmentEditProjectTaskBinding;
 
 public class AddTaskFragment extends Fragment {
     private FragmentAddTaskBinding binding;
