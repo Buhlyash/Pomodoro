@@ -9,6 +9,9 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -147,6 +150,9 @@ public class TimerFragment extends Fragment {
         secondsRemaining = timerLengthSeconds;
         updateButtons();
         updateCountdownUI();
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Ringtone r = RingtoneManager.getRingtone(requireContext(), notification);
+        r.play();
     }
 
     private void startTimer() {

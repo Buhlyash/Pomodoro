@@ -12,7 +12,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.example.pomodoro2.AddTaskActivity;
 import com.example.pomodoro2.R;
 import com.example.pomodoro2.database.Task;
 import com.example.pomodoro2.databinding.FragmentEditTodayBinding;
