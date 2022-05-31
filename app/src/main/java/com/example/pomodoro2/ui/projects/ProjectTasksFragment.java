@@ -107,7 +107,7 @@ public class ProjectTasksFragment extends Fragment {
                     PrefUtil.setSecondsRemaining(secondsRemaining3, requireContext());
                     NotificationUtil.showTimerRunning(requireContext(), wakeUpTime2);
                 } else {
-                    Toast.makeText(requireContext(), "Таймер идет!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Таймер работает!", Toast.LENGTH_SHORT).show();
                 }
                 navController.navigate(R.id.action_projectTasksFragment_to_nav_timer);
             }

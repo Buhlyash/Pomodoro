@@ -66,17 +66,19 @@ public class TimerFragment extends Fragment {
         progressBar = binding.getRoot().findViewById(R.id.progressCountDown);
 
         binding.fabPlay.setOnClickListener(view -> {
-            if (PrefUtil.getCountOfTimer(requireContext()) > PrefUtil.getCountOfRest(requireContext()) && PrefUtil.getCountOfTimer(requireContext()) != 4) {
-                Toast.makeText(requireContext(), "Время для отдыха!", Toast.LENGTH_SHORT).show();
-            } else if (PrefUtil.getCountOfTimer(requireContext()) == PrefUtil.getCountOfRest(requireContext()) && PrefUtil.getCountOfTimer(requireContext()) != 4){
-                Toast.makeText(requireContext(), "Время для работы!", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(requireContext(), "Время для большого отдыха!", Toast.LENGTH_SHORT).show();
-            }
-            if (PrefUtil.getCountOfTimer(getContext()) > PrefUtil.getCountOfRest(getContext())) {
-                PrefUtil.setCountOfRest(PrefUtil.getCountOfRest(getContext()) + 1, getContext());
-            } else {
-                PrefUtil.setCountOfTimer(PrefUtil.getCountOfTimer(getContext()) + 1, getContext());
+            if (timerState != TimerState.Paused) {
+                if (PrefUtil.getCountOfTimer(requireContext()) > PrefUtil.getCountOfRest(requireContext()) && PrefUtil.getCountOfTimer(requireContext()) != 4) {
+                    Toast.makeText(requireContext(), "Время для отдыха!", Toast.LENGTH_SHORT).show();
+                } else if (PrefUtil.getCountOfTimer(requireContext()) == PrefUtil.getCountOfRest(requireContext()) && PrefUtil.getCountOfTimer(requireContext()) != 4){
+                    Toast.makeText(requireContext(), "Время для работы!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireContext(), "Время для большого отдыха!", Toast.LENGTH_SHORT).show();
+                }
+                if (PrefUtil.getCountOfTimer(getContext()) > PrefUtil.getCountOfRest(getContext())) {
+                    PrefUtil.setCountOfRest(PrefUtil.getCountOfRest(getContext()) + 1, getContext());
+                } else {
+                    PrefUtil.setCountOfTimer(PrefUtil.getCountOfTimer(getContext()) + 1, getContext());
+                }
             }
             startTimer();
             timerState = TimerState.Running;

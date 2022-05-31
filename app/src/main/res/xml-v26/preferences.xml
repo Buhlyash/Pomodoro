@@ -6,7 +6,7 @@
         android:key="com.example.timer.timer_length"
         android:max="60"
         android:progress="1"
-        android:title="Timer Length"
+        android:title="Время таймера"
         app:min="1"
         app:showSeekBarValue="true"/>
     <SeekBarPreference
@@ -14,7 +14,7 @@
         android:key="com.example.timer.rest_length"
         android:max="60"
         android:progress="1"
-        android:title="Rest Length"
+        android:title="Время отдыха"
         app:min="1"
         app:showSeekBarValue="true"/>
     <SeekBarPreference
@@ -22,7 +22,7 @@
         android:key="com.example.timer.long_rest_length"
         android:max="60"
         android:progress="1"
-        android:title="Long rest Length"
+        android:title="Время большого отдыха"
         app:min="1"
         app:showSeekBarValue="true"/>
 </PreferenceScreen>

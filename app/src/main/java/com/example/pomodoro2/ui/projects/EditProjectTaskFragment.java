@@ -89,7 +89,6 @@ public class EditProjectTaskFragment extends Fragment {
                             projectTasksViewModel.updateProjectTask(task);
                             InputMethodManager imm = (InputMethodManager) inflater.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
                             imm.hideSoftInputFromWindow(root.getWindowToken(), 0);
-//                            navController.navigate(R.id.action_editProjectTaskFragment_to_projectTasksFragment);
                             navController.popBackStack();
                         } catch (ExecutionException | InterruptedException e) {
                             e.printStackTrace();

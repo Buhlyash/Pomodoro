@@ -27,7 +27,7 @@ import java.util.Locale;
 
 public class NotificationUtil {
     private static final String CHANNEL_ID_TIMER = "menu_timer";
-    private static final String CHANNEL_NAME_TIMER = "Pomodoro App";
+    private static final String CHANNEL_NAME_TIMER = "Pomodoro";
     private static final int TIMER_ID = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -38,10 +38,10 @@ public class NotificationUtil {
                 0, startIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true);
-        nBuilder.setContentTitle("Timer Expired!")
-                .setContentText("Start next?")
+        nBuilder.setContentTitle("Время вышло!")
+                .setContentText("Начать следующий?")
                 .setContentIntent(getPendingIntentWithStack(context, MainActivity.class))
-                .addAction(R.drawable.ic_play, "Start", startPendingIntent);
+                .addAction(R.drawable.ic_play, "Старт", startPendingIntent);
 
         NotificationManager nManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         nManager.createNotificationChannel(createNotificationChannelExpired(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true));
@@ -66,12 +66,12 @@ public class NotificationUtil {
         Date date = new Date(wakeUpTime);
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("hh:mm:ss");
         NotificationCompat.Builder nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true);
-        nBuilder.setContentTitle("Timer is Running.")
-                .setContentText(String.format(Locale.getDefault(),"End: %s", formatForDateNow.format(date)))
+        nBuilder.setContentTitle("Таймер работает.")
+                .setContentText(String.format(Locale.getDefault(),"Конец: %s", formatForDateNow.format(date)))
                 .setContentIntent(getPendingIntentWithStack(context, MainActivity.class))
                 .setOngoing(true)
-                .addAction(R.drawable.ic_stop, "Stop", stopPendingIntent)
-                .addAction(R.drawable.ic_pause, "Pause", pausePendingIntent);
+                .addAction(R.drawable.ic_stop, "Стоп", stopPendingIntent)
+                .addAction(R.drawable.ic_pause, "Пауза", pausePendingIntent);
 
         NotificationManager nManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         nManager.createNotificationChannel(createNotificationChannelExpired(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true));
@@ -87,11 +87,11 @@ public class NotificationUtil {
                 0, resumeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true);
-        nBuilder.setContentTitle("Timer is paused.")
-                .setContentText("Resume?")
+        nBuilder.setContentTitle("Таймер на паузе.")
+                .setContentText("Возобновить?")
                 .setContentIntent(getPendingIntentWithStack(context, MainActivity.class))
                 .setOngoing(true)
-                .addAction(R.drawable.ic_play, "Resume", resumePendingIntent);
+                .addAction(R.drawable.ic_play, "Возобновить", resumePendingIntent);
 
         NotificationManager nManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationChannel ch = createNotificationChannelExpired(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true);

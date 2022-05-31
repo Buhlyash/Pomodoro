@@ -53,19 +53,10 @@ public class ProjectsFragment extends Fragment {
         NavHostFragment navHostFragment = (NavHostFragment) fragmentManager.findFragmentById(R.id.nav_host_fragment_content_main);
         NavController navController = navHostFragment.getNavController();
 
-//        final TextView textView = binding.textProjects;
-//        projectsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         binding.fabProjects.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Projects projects = new Projects("Today");
-//                projectsViewModel.insertProjects(projects);
-//                Toast.makeText(inflater.getContext(), "ABOBA", Toast.LENGTH_SHORT).show();
-//                projectsViewModel.deleteAllProjects();
-//                Intent intent = new Intent(inflater.getContext(), AddProjectActivity.class);
-//                startActivity(intent);
                 navController.navigate(R.id.action_nav_projects_to_addProjectFragment);
-//                projectsViewModel.insertProjects(new Projects(1, "Today"));
             }
         });
 
@@ -92,24 +83,6 @@ public class ProjectsFragment extends Fragment {
                 remove(position);
             }
         });
-
-//        ProjectsViewModel projectsViewModel = new ViewModelProvider(this).get(ProjectsViewModel.class);
-
-//        List<Projects> pr = projects1.getValue();
-//        Projects TodayProject = new Projects(1, "Today");
-//        if (!(pr != null && pr.contains(TodayProject))) {
-//            Projects p = new Projects(1,"Today");
-//            projectsViewModel.insertProjects(p);
-//            Toast.makeText(inflater.getContext(), "Inserted Today project", Toast.LENGTH_SHORT).show();
-//        } else {
-//            Toast.makeText(inflater.getContext(), "There is a Today project", Toast.LENGTH_SHORT).show();
-//        }
-//        if (projects != null) {
-//            projects.add(new Projects(1, "Today"));
-//        }
-//        List<Projects> p =  adapter.getProjects();
-//        Toast.makeText(inflater.getContext(), "" + projects.size(), Toast.LENGTH_SHORT).show();
-//        AppBarLayout ap = getActivity().findViewById(R.id.)
         return root;
     }
 

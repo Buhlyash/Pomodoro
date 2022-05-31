@@ -99,14 +99,4 @@ public class ProjectsViewModel extends AndroidViewModel {
             return null;
         }
     }
-
-
-//    public ProjectsViewModel() {
-//        mText = new MutableLiveData<>();
-//        mText.setValue("This is projects fragment");
-//    }
-
-//    public LiveData<String> getText() {
-//        return mText;
-//    }
 }

@@ -85,8 +85,6 @@ public class ProjectsTasksAdapter extends RecyclerView.Adapter<ProjectsTasksAdap
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(view.getContext());
-//                    preferences.edit().putInt("task_id" ,tasks.get(getAdapterPosition()).getId()).apply();
                     if (onTasksClickListener != null) {
                         onTasksClickListener.onTaskClick(getAdapterPosition());
                     }
